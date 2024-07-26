@@ -1,13 +1,16 @@
-// SignUpForm.tsx
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import './SignUpForm.css';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 interface SignUpFormProps {
   onLogin?: () => void;
 }
 
 const SignUpForm: React.FC<SignUpFormProps> = ({ onLogin }) => {
+  const [user, setUser] = useState<any>(null);
+  const [profile, setProfile] = useState<any>(null);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -15,17 +18,41 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onLogin }) => {
     console.log(playerFormData);
   };
 
-  const  responseMessage = ( response: any ) => { 
-        console . log (response); 
-    }; 
-    const  errorMessage = ( error: any ) => { 
-        console . log ("Hola"); 
-    }; 
+  const login = useGoogleLogin({
+        onSuccess: (codeResponse) => setUser(codeResponse),
+        onError: (error) => console.log('Login Failed:', error)
+    });
 
-  const handleGoogleLogin = () => {
-    if (onLogin) {
-      onLogin();
+  const handleLoginSuccess = (response: any) => {
+    setUser(response);
+  };
+
+  const handleLoginError = () => {
+    console.log('Login Error');
+  };
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+            Accept: 'application/json',
+          },
+        })
+        .then((res) => {
+          setProfile(res.data);
+          if (onLogin) {
+            onLogin();
+          }
+        })
+        .catch((err) => console.log(err));
     }
+  }, [user, onLogin]);
+
+  const logOut = () => {
+    googleLogout();
+    setProfile(null);
   };
 
   return (
@@ -34,7 +61,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onLogin }) => {
         <div className="sign-up__header">
           <h1 className="sign-up__title">Registrarse</h1>
           <div className="sign-up__social-icons">
-            <GoogleLogin onSuccess={responseMessage}  />
+            <button id='btn-google' onClick={() => login()}><i className='bx bxl-google' style={{ color: '#bfbfbf' }}></i></button>
           </div>
         </div>
         <div className="sign-up__body">
@@ -54,6 +81,15 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onLogin }) => {
           </div>
         </div>
       </form>
+      {profile && (
+        <div className="sign-up__profile">
+          <img src={profile.picture} alt="user image" />
+          <h3>User Logged in</h3>
+          <p>Name: {profile.name}</p>
+          <p>Email Address: {profile.email}</p>
+          <button onClick={logOut}>Log out</button>
+        </div>
+      )}
     </div>
   );
 };

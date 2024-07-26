@@ -93,6 +93,18 @@
   place-items: center;
 }
 
+#btn-google {
+  background-color: #151515;
+  color: #fff;
+  border: none;
+  box-shadow: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+}
+
 .sign-up__button {
   border: none;
   padding: 1rem 2rem;

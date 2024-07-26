@@ -1,11 +1,12 @@
-// LoginGoogle.tsx
+/*App.js*/
+
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
-const LoginGoogle = () => {
-    const [ user, setUser ] = useState<any>(null);
-    const [ profile, setProfile ] = useState<any>(null);
+function App() {
+    const [ user, setUser ] = useState([]);
+    const [ profile, setProfile ] = useState([]);
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => setUser(codeResponse),
@@ -31,6 +32,7 @@ const LoginGoogle = () => {
         [ user ]
     );
 
+    // log out function to log the user out of google and set the profile array to null
     const logOut = () => {
         googleLogout();
         setProfile(null);
@@ -52,10 +54,9 @@ const LoginGoogle = () => {
                     <button onClick={logOut}>Log out</button>
                 </div>
             ) : (
-                <button onClick={() => login()}>Sign in with Google 🚀</button>
+                <button onClick={() => login()}>Sign in with Google 🚀 </button>
             )}
         </div>
     );
-};
-
-export default LoginGoogle;
+}
+export default App;

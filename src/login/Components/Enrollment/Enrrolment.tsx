@@ -20,7 +20,7 @@ const Enrollment: React.FC<EnrollmentProps> = ({ onRegisterClick = () => {} }) =
 
   const handleRegisterClick = () => {
     onRegisterClick();
-    navigate('/signup'); // Cambia la ruta a '/signup'
+    navigate('/login'); // Cambia la ruta a '/signup'
   };
 
   return (

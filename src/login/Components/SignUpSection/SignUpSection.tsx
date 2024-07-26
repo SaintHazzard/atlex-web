@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './SignUpSection.css';
-
 import SignUpFigure from '../SignUpFigure/SignUpFigure';
 import SignUpForm from '../SignUpForm/SignUpForm';
 
@@ -10,13 +9,13 @@ interface SignUpSectionProps {
 
 const SignUpSection: React.FC<SignUpSectionProps> = ({ onRegisterClick = () => {} }) => {
   useEffect(() => {
-    // Aquí puedes poner lógica adicional si es necesario
+    // Any side effects you want to handle
   }, []);
 
   return (
     <section className="sign-up">
-      <SignUpForm></SignUpForm>
-      <SignUpFigure></SignUpFigure>
+      <SignUpForm onLogin={onRegisterClick} />
+      <SignUpFigure />
     </section>
   );
 };
