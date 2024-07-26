@@ -38,7 +38,11 @@ header {
 }
 
 .main-logo {
-  width: 100%;
+  width: 200px;
+  background-image: url("../../storage/logos/header__logo.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .navlinks {

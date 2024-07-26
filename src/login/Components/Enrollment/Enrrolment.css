@@ -1,16 +1,26 @@
 /* Enrollment.css */
-body,
-html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: Arial, sans-serif;
-  background-color: #1a1f25;
+
+
+/* body {
+  background-image: url();
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* height: 100%; */
+/* } */
+
+.containerEnroll {
+  background-image: none;
+  background-color: #151515;
+  /* height: 100vh; */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
 }
 
-.container {
-  position: relative;
-  height: 100vh;
+#root {
+  height: fit-content;
+  overflow: hidden;
 }
 
 .section {
@@ -221,9 +231,9 @@ html {
   height: 100%;
 }
 
-#log-in {
+/* #log-in {
   display: none;
-}
+} */
 
 header {
   position: absolute !important;

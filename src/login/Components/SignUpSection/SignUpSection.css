@@ -1,0 +1,31 @@
+.sign-up {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background-color: #151515;
+}
+
+.sign-up__form {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 2rem;
+  color: white;
+  border: 1px solid rgb(52, 52, 52);
+  box-shadow: 5px 5px 15px #000000bb;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

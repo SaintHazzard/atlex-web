@@ -9,12 +9,6 @@
   position: relative;
 }
 
-body {
-  background-image: url('../../storage/backgrounds/landing-page-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
 
 .hero-section .text {
   align-self: self-end;

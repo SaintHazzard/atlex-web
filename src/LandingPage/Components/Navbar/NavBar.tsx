@@ -1,39 +1,24 @@
-import React, { useEffect } from 'react';
-import './NavBar.css'; // Asegúrate de que el CSS esté en un archivo separado
+// NavBar.tsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './NavBar.css'; // Ensure CSS file is imported
 
-const NavBar = () => {
-    useEffect(() => {
-        const handleScroll = () => {
-            const header = document.querySelector('header');
-            if (header) {
-                header.classList.toggle('sticky', window.scrollY > 0);
-            }
-        };
-        
-        window.addEventListener('scroll', handleScroll);
-        
-        // Clean up the event listener on component unmount
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
+const NavBar: React.FC = () => {
     return (
         <header>
             <nav className="navbar">
                 <div className="logo">
-                    <a href="./index.html" className="logo-link">
-                        <img src="LandingPage/storage/logos/header__logo.png" alt="Athlex" className="main-logo" />
-                    </a>
+                    <Link to="/" className="logo-link">
+                        <img src={require("../../storage/logos/header__logo.png")} className="main-logo"/>
+                    </Link>
                 </div>
                 <ul className="navlinks">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#quienes-somos">¿Quiénes somos?</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                    <li id="log-in">Ingresar</li>
+                    <li><Link to="#inicio">Inicio</Link></li>
+                    <li><Link to="#quienes-somos">¿Quiénes somos?</Link></li>
+                    <li><Link to="#servicios">Servicios</Link></li>
+                    <li><Link to="#contacto">Contacto</Link></li>
+                    <li id='log-in'><Link to="/enrollment">Ingresar</Link></li>
                 </ul>
-                <button className="menu-btn expanded">☰</button>
             </nav>
         </header>
     );

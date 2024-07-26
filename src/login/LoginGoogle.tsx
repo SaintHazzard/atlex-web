@@ -1,28 +1,27 @@
+// LoginGoogle.tsx
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import Profile from './Profile';
-import './App.css';
 import SignUpForm from './Components/SignUpForm/SignUpForm';
 
 interface User {
     access_token: string;
-    // otros campos según sea necesario
 }
 
 interface ProfileData {
-    // Define los campos esperados en el perfil
     name: string;
     email: string;
-    // otros campos según sea necesario
 }
 
-function App() {
+const LoginGoogle: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
     const [profile, setProfile] = useState<ProfileData | null>(null);
 
     const login = useGoogleLogin({
-        onSuccess: (codeResponse) => setUser(codeResponse),
+        onSuccess: (codeResponse) => {
+            setUser({ access_token: codeResponse.access_token });
+        },
         onError: (error) => console.log('Login Failed:', error)
     });
 
@@ -37,7 +36,6 @@ function App() {
                 })
                 .then((res) => {
                     setProfile(res.data);
-                    console.log("Data assigned");
                 })
                 .catch((err) => console.log(err));
         }
@@ -50,14 +48,14 @@ function App() {
     };
 
     return (
-    <div>
-      {profile ? (
-        <Profile profileDetails={profile} login={login} logout={logOut} />
-      ) : (
-        <SignUpForm onLogin={login} />
-      )}
-    </div>
-  );
+        <div>
+            {profile ? (
+                <Profile profileDetails={profile} login={login} logout={logOut} />
+            ) : (
+                <SignUpForm onLogin={login} />
+            )}
+        </div>
+    );
 }
 
-export default App;
+export default LoginGoogle;
